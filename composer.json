@@ -8,6 +8,11 @@
             "email": "996190264@qq.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
     "require": {
         "simplesoftwareio/simple-qrcode": "^2.0"
     }
