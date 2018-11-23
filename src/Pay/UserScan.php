@@ -14,8 +14,6 @@ class UserScan  extends Base
     protected $amount;
 
     protected $qrcode;
-
-    protected $postData;
     
 
     public function __construct(float $amount)
@@ -111,14 +109,6 @@ class UserScan  extends Base
     public function getRefreshUrl(): string
     {
         return $this->refresh_url;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPostData(): array
-    {
-        return $this->postData;
     }
 
 }

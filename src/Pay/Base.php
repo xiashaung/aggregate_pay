@@ -32,6 +32,11 @@ abstract class Base
     protected $pp_trade_no;
 
     /**
+     * @var array 请求接口的数据
+     */
+    protected $postData;
+
+    /**
      * @var string 回调地址 不能带参数
      */
     protected $notify_url;
@@ -122,4 +127,14 @@ abstract class Base
         $this->shop_no = $shop_no;
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getPostData(): array
+    {
+        return $this->postData;
+    }
+
+
 }
