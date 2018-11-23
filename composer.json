@@ -1,0 +1,14 @@
+{
+    "name": "xiashuang/qingtianpay",
+    "description": "qingtian_pay",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "夏爽",
+            "email": "996190264@qq.com"
+        }
+    ],
+    "require": {
+        "simplesoftwareio/simple-qrcode": "^2.0"
+    }
+}
