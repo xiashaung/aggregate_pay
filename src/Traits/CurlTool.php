@@ -47,7 +47,6 @@ trait CurlTool
         if (curl_errno($ch)) {
             echo 'Errno' . curl_error($ch);//捕抓异常
         }
-        Log::info($tmpInfo);
         curl_close($ch); // 关闭CURL会话
         return $this->decodeInfo($tmpInfo); // 返回数据，json格式
     }

@@ -32,7 +32,7 @@ abstract class Base
     protected $pp_trade_no;
 
     /**
-     * @var string 回调地址
+     * @var string 回调地址 不能带参数
      */
     protected $notify_url;
 

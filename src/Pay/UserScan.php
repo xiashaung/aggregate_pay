@@ -14,23 +14,30 @@ class UserScan  extends Base
     protected $amount;
 
     protected $qrcode;
+
+    protected $postData;
     
 
     public function __construct(float $amount)
     {
         $this->amount = $amount;
         $this->qrcode = new BaconQrCodeGenerator();
-        $this->init();
     }
 
 
-    protected function init()
+    /**
+     * @return mixed
+     * @throws PayException
+     * 执行支付调用 这个时候还未进行支付 等待成功返回并用返回的url生成二维码,提供给用户扫描即可
+     */
+    public function pay()
     {
-        $postData = $this->postData();
-        $res = $this->post($this->api_url, $this->makePostData($postData));
+        $this->check();
+        $this->postData = $this->postData();
+        $res = $this->post($this->api_url, $this->makePostData($this->postData));
         if ($res->resp_code == '0000') {
             $this->setRefreshUrl($res->refresh_url);
-            return true;
+            return $res;
         } else {
             throw new PayException($res->resp_msg);
         }
@@ -48,7 +55,7 @@ class UserScan  extends Base
         if (!$this->refresh_url) {
             throw new PayException("支付地址信息错误");
         }
-        $this->qrcode->size($size)->generate($this->refresh_url);
+        return $this->qrcode->size($size)->generate($this->refresh_url);
     }
 
 
@@ -58,7 +65,7 @@ class UserScan  extends Base
      */
     protected function postData(): array
     {
-        $order_sn = $this->createPPTradeNo();
+        $order_sn = $this->pp_trade_no?: $this->createPPTradeNo();
         return [
             'amount' => $this->amount * 100,//支付金额 单位是分
             'account' => $this->shop_no,
@@ -66,6 +73,19 @@ class UserScan  extends Base
             'payment_method' => "JSAPI",
             'notify_url' => $this->notify_url, //支付回调地址
         ];
+    }
+
+    protected function check()
+    {
+        if(!$this->notify_url){
+            throw new PayException('回调地址未设置');
+        }
+        if (!$this->key) {
+            throw new PayException('商户秘钥未设置');
+        }
+        if (!$this->shop_no) {
+            throw new PayException('商户号未设置');
+        }
     }
 
     /**
@@ -91,6 +111,14 @@ class UserScan  extends Base
     public function getRefreshUrl(): string
     {
         return $this->refresh_url;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPostData(): array
+    {
+        return $this->postData;
     }
 
 }
