@@ -6,7 +6,7 @@ namespace Qingtian\Pay;
 
 use App\Business\Pay\PayException;
 
-class ShopScan extends Base
+class  ShopScan extends Base
 {
     /**
      * @var float 金额
