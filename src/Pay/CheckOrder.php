@@ -41,7 +41,7 @@ class CheckOrder   extends  Base
           $this->result = $res =  $this->post($this->api_url,$this->makePostData($data));
           $this->code = $res->resp_code;
           $this->respMsg = $res->resp_msg;
-          if (!$this->check()){
+          if ($this->check()){
               switch ($res->pay_type){
                   case "WXPAY":
                       $this->channel = 2;
