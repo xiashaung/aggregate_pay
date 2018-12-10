@@ -64,13 +64,16 @@ class UserScan  extends Base
     protected function postData(): array
     {
         $order_sn = $this->pp_trade_no?: $this->createPPTradeNo();
-        return [
+        $data =  [
             'amount' => $this->amount * 100,//支付金额 单位是分
             'account' => $this->shop_no,
             'pp_trade_no' => $order_sn,
             'payment_method' => "JSAPI",
-            'notify_url' => $this->notify_url, //支付回调地址
         ];
+        if ($this->notify_url) {
+            $data['notify_url'] = $this->notify_url;
+        }
+        return $data;
     }
 
     protected function check()

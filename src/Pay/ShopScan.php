@@ -49,13 +49,16 @@ class  ShopScan extends Base
     protected function postData()
     {
         $order_sn = $this->pp_trade_no?:$this->createPPTradeNo();
-        return [
+        $data =  [
             'account' => $this->shop_no,
             'pp_trade_no' => $order_sn,
             'amount' => $this->amount*100,//单位为分 最少2分
             'payment_method' => "SK",
             'authno' => $this->authNo,
-            'notify_url' => $this->notify_url, //支付回调地址
         ];
+        if ($this->notify_url){
+            $data['notify_url'] = $this->notify_url;
+        }
+        return $data;
     }
 }

@@ -64,7 +64,39 @@
            
             
 
-###返回参数说明
+###支付查询结果
+    
+    <?php
+         $check = new  \Qingtian\Pay\CheckOrder($this->order_sn);
+              $check->setShopNo($this->shop_no)//设置商户号
+              ->setKey($this->key) //设置key
+              ->handle();//执行查询操作
+         //验证支付结果
+         $check->check();//返回结果true或者false;
+         //查询结果信息
+         $check->getRespMsg();
+         //获取结果code
+         $check->getResult();
+         //获取支付渠道
+         $check->getChannel(); // 1支付宝 2 微信 0 其他
+         //获取接口返回结果
+         {
+               "transaction_id": "507172408"
+              "total_amount": "2"//支付金额
+              "coupon_fee": "0" //优惠金额
+              "coupon_fee_no_cash": "0"
+              "settlement_total_fee": "2"
+              "resp_code": "0000" //支付结果
+              "sign": "0bdecb50e06cffef18f512ec76e65d03"
+              "pay_type": "WXPAY" //支付类型 ALIPAY
+              "resp_msg": "交易成功"
+              "order_sn": "POS2018112316304859034"//订单号
+              }
+            
+         $check->getResult(); //返回类型为object
+         
+           
+              
 
   
             
