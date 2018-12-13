@@ -49,6 +49,15 @@ abstract class Base
 
 
     /**
+     * @return mixed
+     * 执行post请求
+     */
+    public function makePostRequest()
+    {
+       return  $this->post($this->api_url,$this->makePostData($this->postData));
+    }
+
+    /**
      * @param array $data
      * @return array
      * 计算签名

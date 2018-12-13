@@ -4,7 +4,9 @@
 namespace Qingtian\Exception;
 
 
-class QingtianException  extends \Exception
+use Exception\QingtianExceptionInterface;
+
+class QingtianException  extends \Exception implements QingtianExceptionInterface
 {
 
 }

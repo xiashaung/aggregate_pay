@@ -98,5 +98,9 @@
            
               
 
-  
+### 退款
+    
+    <?php  $obj = new Qingtian\Pay\Refund(string $order_sn,string $refund_order_sn,         float  $amount);
+           $obj->setShopNo('商户号')->setKey('秘钥')->handle();
+           //获取退款结果
             

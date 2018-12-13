@@ -3,8 +3,7 @@
 
 namespace Qingtian\Pay;
 
-
-use App\Business\Pay\PayException;
+use Exception\PayException;
 
 class  ShopScan extends Base
 {
@@ -34,11 +33,11 @@ class  ShopScan extends Base
     public function pay()
     {
         $this->postData =  $this->postData();
-        $res = $this->post($this->api_url, $this->makePostData($this->postData));
+        $res = $this->makePostRequest();;
         if ($res->resp_code == '0000') {
             return $res;
         } else {
-            throw new PayException($res->resp_msg);
+            throw new PayException($res->resp_msg,$res->resp_code);
         }
     }
 

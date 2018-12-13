@@ -4,7 +4,7 @@
 namespace Qingtian\Pay;
 
 
-use App\Business\Pay\PayException;
+use Exception\PayException;
 use SimpleSoftwareIO\QrCode\BaconQrCodeGenerator;
 
 class UserScan  extends Base
@@ -32,12 +32,12 @@ class UserScan  extends Base
     {
         $this->check();
         $this->postData = $this->postData();
-        $res = $this->post($this->api_url, $this->makePostData($this->postData));
+        $res = $this->makePostRequest();;
         if ($res->resp_code == '0000') {
             $this->setRefreshUrl($res->refresh_url);
             return $res;
         } else {
-            throw new PayException($res->resp_msg);
+            throw new PayException($res->resp_msg, $res->resp_code);
         }
     }
 
@@ -76,11 +76,11 @@ class UserScan  extends Base
         return $data;
     }
 
+    /**
+     * @throws Pa
+     */
     protected function check()
     {
-        if(!$this->notify_url){
-            throw new PayException('回调地址未设置');
-        }
         if (!$this->key) {
             throw new PayException('商户秘钥未设置');
         }
