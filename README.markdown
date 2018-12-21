@@ -103,4 +103,37 @@
     <?php  $obj = new Qingtian\Pay\Refund(string $order_sn,string $refund_order_sn,         float  $amount);
            $obj->setShopNo('商户号')->setKey('秘钥')->handle();
            //获取退款结果
+
+
+### 小程序支付
+
+        <?php
             
+           $minProgram  = new Qingtian\Pay\MinProgram($app_id,$opend_id,$amount);
+           
+            $result = $minProgram->setShopNo('商户号')//设置商户号
+                       ->setKey('秘钥')//设置上架秘钥
+                       ->setPpTradeNo('订单号')//设置订单号
+                       ->setGoodsName('商品名称')//商品名称
+                       ->setReamrk('备注')//备注
+                       ->setNotifyUrl('回调地址')//设置回调地址 注意回调地址不能以 ?a=1&b=2形式带参数
+                       ->handle();//执行调用 成功返回成功参数 失败抛
+            var_dump($reesult)'
+            {
+                "transaction_id": "537603639",
+                "payment_channel": "WXPAY",
+                "total_amount": "2.0",
+                "resp_code": "success",
+                "sign": "bfd95cb94402fa7f98ce5452f82defa5",
+                "resp_msg": "成功",
+                "payInfo": 
+                {"appId":"wx124a6dddd9d48614",
+                "timeStamp":"1545303611","nonceStr":"a6db0c1c95204421b7d9ad1d53177d26","package":"prepay_id=wx20190011252147248443378a2488922445","signType":"RSA",
+                "paySign":"mRpMczHHTWCsXeW7f/xjQn2tJGMp6QJ8eB5Qx3rpmzWEa/GfR/Yy1AQPJ/uGWWH7o37acJSEBO1XN7sbjx4ZmU+84vlrTBQH6BpC/bNhNvCxvx7ZazNEnirY2RY3ib9es401zA22INWMrSIj8E40swhnSOBQHQ2Q3kTPZDqZiDQoPTGOnOyoop7sSuhCU4kBzP9iklGtXHTnIqhZEF1tx3Moqs/OV+imXEgOENPGCcRltNKUCxMefzTwLlNl38Isjhu4dOdMTXU88ZvwigvEFqTKrAVAi+amhYXY3J4WtzcfHlhfhFhLAY+3uVuq5wMJjyiCmp62K7Q4c9qBn1uqPA=="
+                },
+                
+              //获取payInfo的信息还可以这样
+              
+              var_dump($program->appId);//wx124a6dddd9d48614
+
+                       
