@@ -1,11 +1,10 @@
 <?php
 
 
-namespace Pay;
+namespace Qingtian\Pay;
 
 
 use Exception\MinProgramException;
-use Qingtian\Pay\Base;
 
 class MinProgram    extends  Base
 {
