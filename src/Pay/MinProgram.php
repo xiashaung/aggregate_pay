@@ -43,11 +43,11 @@ class MinProgram    extends  Base
     {
         $this->formatPostData();
         $this->result = $result = $this->makePostRequest();
-        if ($result->resp_code!='0000'){
-            throw new MinProgramException($result->resp_msg);
+        if ($result->resp_code=='0000'){
+            $this->result->payInfo = json_decode($this->result->payInfo);
+            return $this->result;
         }
-        $this->result->payInfo = json_encode($this->result->payInfo);
-        return $this->result;
+        throw new MinProgramException($result->resp_msg);
     }
 
     /**
