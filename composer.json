@@ -14,5 +14,6 @@
         }
     },
     "require": {
+        "xiashuang/qingtianpay": "1.0.x-dev"
     }
 }

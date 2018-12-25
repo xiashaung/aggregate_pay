@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Pay;
+namespace Qingtian\Pay;
 
 
 use Exception\RefundException;
