@@ -46,13 +46,13 @@ class Refund   extends Base
     {
         $this->postData = [
             'account' => $this->shop_no,
-            'trade' => $this->order_sn,
+            'pp_trade_no' => $this->order_sn,
             'refund_code' => $this->refund_order_sn,
-            'refund_fee' => $this->amount,
+            'refund_fee' => $this->amount*100,
         ];
        $this->result = $this->makePostRequest();
-       if ($this->result->code!='0000'){
-           throw new RefundException($this->result->code,$this->result->sub_msg);
+       if ($this->result->resp_code!='0000'){
+           throw new RefundException($this->result->resp_msg);
        }
     }
 
