@@ -23,9 +23,9 @@ class Handle
      */
     protected $callback;
 
-    const APLPAY_JSAPI = 4; //支付宝jsapi
-    const APLPAY_SCAN = 4; //支付
-    const WECHAT_SCAN = 3; //微信扫码
+    const APLPAY_JSAPI = 3; //支付宝jsapi
+    const APLPAY_SCAN = 3; //支付
+    const WECHAT_SCAN = 4; //微信扫码
     const WECHAT_JSAPI = 7;//微信jsapi
     CONST WECHAT_PUBLIC = 7;//微信公众号
     CONST WECHAT_APPLET = 7;//微信小程序
@@ -50,6 +50,9 @@ class Handle
      */
     public function handle(string $orderSn, float $orderAmount)
     {
+        if ($this->data['code']!='0000'){
+            throw new PayException($this->data['ret_msg']);
+        }
         $data = $this->data;
         //删除签名
         unset($data['sign']);

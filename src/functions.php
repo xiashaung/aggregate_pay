@@ -6,22 +6,26 @@
  * @return string
  * 验证方法
  */
-function makeSign(array $data,string $machKey)
+function makeSign(array $data, string $machKey)
 {
     //对数组进行排序
     ksort($data);
     $tmp = '';
     foreach ($data as $key => $rs) {
-        if (is_array($rs)) {
-            ksort($rs);
-            foreach ($rs as $k => $v) {
-                $tmp .= $k . '=' . $v . '&';
+        if ($rs) {
+            if (is_array($rs)) {
+                ksort($rs);
+                foreach ($rs as $k => $v) {
+                    if ($v) {
+                        $tmp .= $k . '=' . $v . '&';
+                    }
+                }
+            } else {
+                $tmp .= $key . '=' . $rs . '&';
             }
-        } else {
-            $tmp .= $key . '=' . $rs . '&';
         }
     }
     $sign = trim($tmp, '&');
     $sign .= '&key=' . $machKey;
-    return  md5($sign);
+    return md5($sign);
 }
