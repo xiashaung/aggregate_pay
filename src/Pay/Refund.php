@@ -46,8 +46,8 @@ class Refund   extends Base
     {
         $this->postData = [
             'account' => $this->shop_no,
-            'pp_trade_no' => $this->order_sn,
-            'refund_code' => $this->refund_order_sn,
+            'order_no' => $this->order_sn,//成功的订单号
+            'pp_trade_no' => $this->refund_order_sn,//新生成的订单号
             'refund_fee' => $this->amount*100,
         ];
        $this->result = $this->makePostRequest();
