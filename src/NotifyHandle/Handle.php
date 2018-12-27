@@ -56,7 +56,7 @@ class Handle
         $data = $this->data;
         //删除签名
         unset($data['sign']);
-        $data['order_amount'] = $orderAmount;
+        $data['order_amount'] = sprintf("%1.2f", $orderAmount);//不足两位时 小数点自动补0
         $data['order_no'] = $orderSn;
         $sign = makeSign($data, $this->key);
         if ($sign != $this->data['sign']) {
