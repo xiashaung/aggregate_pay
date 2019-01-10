@@ -12,28 +12,14 @@ class MinProgram    extends  Base
 
     protected $openId;
 
-    protected $amount;
-
     protected $goodsName;
 
     protected $remark;
 
     protected $result;
 
+    protected $api_url = 'http://www.qingtianfu.com/order/mini_program_pay';
 
-    /**
-     * MinProgram constructor.
-     * @param $appId string
-     * @param $openId  string
-     * @param $amount  int|float 订单金额
-     */
-    public function __construct(string $appId, string $openId, $amount)
-    {
-        $this->appId = $appId;
-        $this->openId = $openId;
-        $this->amount = $amount;
-        $this->api_url = 'http://www.qingtianfu.com/order/mini_program_pay';
-    }
 
     /**
      * @return object
@@ -62,12 +48,12 @@ class MinProgram    extends  Base
         if (!is_numeric($this->amount)) throw new MinProgramException('amount必须为数字类型');
 
         $this->postData = [
-            'amount' => $this->amount*100,
+            'amount' => $this->payment*100,
             'appid' => $this->appId,
             'openid' => $this->openId,
             'goods_name' => $this->goodsName?:'客满美业',
             'remark' => $this->remark?:'客满美业',
-            'pp_trade_no' => $this->pp_trade_no,
+            'pp_trade_no' => $this->order_sn,
             'account' => $this->shop_no,
         ];
         if ($this->notify_url){
@@ -96,6 +82,28 @@ class MinProgram    extends  Base
         $this->remark = $remark;
         return $this;
     }
+
+    /**
+     * @param mixed $appId
+     * @return self
+     */
+    public function setAppId(string $appId): self
+    {
+        $this->appId = $appId;
+        return $this;
+    }
+
+    /**
+     * @param mixed $openId
+     * @return self
+     */
+    public function setOpenId(string $openId): self
+    {
+        $this->openId = $openId;
+        return $this;
+    }
+
+
 
     /**
      * @param $name
